@@ -5,6 +5,7 @@
   "type": "module",
   "files": ["dist"],
   "module": "./dist/enigma-react.js",
+  "types": "./dist/lib/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/enigma-react.js"
