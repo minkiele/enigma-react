@@ -687,9 +687,11 @@ const useEnigma = () => {
     (state.reflector.type !== "D" || state.reflector.wirings.length === 12),
   );
 
+  const isM3Compatible = type === "M3" || !isFourthRotorEnabled;
+
   const isMachineValid =
     isReflectorValid &&
-    (type === "M3" || isFourthRotorValid || !isFourthRotorEnabled) &&
+    (isM3Compatible || isFourthRotorValid) &&
     isLeftRotorValid &&
     isCenterRotorValid &&
     isRightRotorValid &&
@@ -704,7 +706,7 @@ const useEnigma = () => {
       (state.reflector?.type === "Thin C" &&
         state.fourthRotor.type === "Gamma"));
 
-  const isBackspaceEnabled = history.length > 0;
+  const isHistoryAvailable = history.length > 0;
 
   const hookReturnValue = {
     ...state,
@@ -719,7 +721,8 @@ const useEnigma = () => {
     isCenterRotorValid,
     isRightRotorValid,
     isFourthRotorEnabled,
-    isBackspaceEnabled,
+    isHistoryAvailable,
+    isM3Compatible,
   };
 
   useDebugValue(hookReturnValue);

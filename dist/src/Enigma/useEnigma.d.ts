@@ -28,7 +28,8 @@ declare const useEnigma: () => {
     isCenterRotorValid: boolean;
     isRightRotorValid: boolean;
     isFourthRotorEnabled: boolean;
-    isBackspaceEnabled: boolean;
+    isHistoryAvailable: boolean;
+    isM3Compatible: boolean;
     reflector?: import("./models").ReflectorState<ReflectorType | ThinReflectorType>;
     fourthRotor?: RotorState<ThinRotorType>;
     leftRotor?: RotorState<RotorType>;

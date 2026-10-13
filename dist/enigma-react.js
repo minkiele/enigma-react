@@ -1,8 +1,8 @@
-import { Enigma as e, EnigmaM4 as t, ReflectorA as n, ReflectorB as r, ReflectorBeta as i, ReflectorC as a, ReflectorD as o, ReflectorGamma as s, RotorI as c, RotorII as ee, RotorIII as te, RotorIV as ne, RotorV as re, RotorVI as ie, RotorVII as ae, RotorVIII as oe, ThinReflectorB as se, ThinReflectorC as ce, ThinRotorBeta as le, ThinRotorGamma as ue, Uhr as l } from "enigma-minkiele";
-import { useCallback as u, useDebugValue as de, useRef as d } from "react";
-import { create as f } from "zustand";
-import { produce as p } from "immer";
-var m = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "function" ? p(e) : e, n, ...r), e(r.setState, n, r)), h = {
+import { Enigma as e, EnigmaM4 as t, ReflectorA as n, ReflectorB as r, ReflectorBeta as i, ReflectorC as a, ReflectorD as o, ReflectorGamma as ee, RotorI as s, RotorII as te, RotorIII as ne, RotorIV as re, RotorV as ie, RotorVI as ae, RotorVII as oe, RotorVIII as se, ThinReflectorB as ce, ThinReflectorC as le, ThinRotorBeta as ue, ThinRotorGamma as de, Uhr as c } from "enigma-minkiele";
+import { useCallback as l, useDebugValue as fe, useRef as u } from "react";
+import { create as d } from "zustand";
+import { produce as f } from "immer";
+var p = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "function" ? f(e) : e, n, ...r), e(r.setState, n, r)), m = {
 	type: "M3",
 	reflector: void 0,
 	fourthRotor: void 0,
@@ -14,20 +14,20 @@ var m = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "functio
 	input: "",
 	output: "",
 	history: []
-}, g = (n) => {
+}, h = (n) => {
 	switch (n) {
 		case "fourth": return t.FOURTH_ROTOR;
 		case "left": return e.LEFT_ROTOR;
 		case "center": return e.CENTER_ROTOR;
 		case "right": return e.RIGHT_ROTOR;
 	}
-}, _ = ["Thin B", "Thin C"], v = (e) => (t) => !(e[0] === t[0] && e[1] === t[1] || e[0] === t[1] && e[1] === t[0]), y = (e, t) => {
+}, g = ["Thin B", "Thin C"], _ = (e) => (t) => !(e[0] === t[0] && e[1] === t[1] || e[0] === t[1] && e[1] === t[0]), v = (e, t) => {
 	if (e.history.length > 0 && t >= 0 && t < e.history.length) {
 		let n = e.history[t];
 		n && (e.fourthRotor && n.fourth && (e.fourthRotor.windowLetter = n.fourth), e.leftRotor && n.left && (e.leftRotor.windowLetter = n.left), e.centerRotor && n.center && (e.centerRotor.windowLetter = n.center), e.rightRotor && n.right && (e.rightRotor.windowLetter = n.right));
 	}
-}, b = f()(m((e) => ({
-	...h,
+}, pe = d()(p((e) => ({
+	...m,
 	setRotorType: (t, n) => {
 		e((e) => {
 			t === "fourth" ? e.fourthRotor = {
@@ -70,7 +70,7 @@ var m = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "functio
 	},
 	removePlugBoardWiring: (t) => {
 		e((e) => {
-			e.wirings = e.wirings.filter(v(t));
+			e.wirings = e.wirings.filter(_(t));
 		});
 	},
 	setUhrSetting: (t) => {
@@ -81,7 +81,7 @@ var m = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "functio
 	setMachineType: (t) => {
 		e((e) => ({
 			...e,
-			...h,
+			...m,
 			type: t
 		}));
 	},
@@ -90,7 +90,7 @@ var m = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "functio
 			e.reflector = {
 				type: t,
 				wirings: []
-			}, e.type === "M4" && !_.includes(t) && (e.fourthRotor = void 0), e.history = [];
+			}, e.type === "M4" && !g.includes(t) && (e.fourthRotor = void 0), e.history = [];
 		});
 	},
 	addReflectorWiring: (t) => {
@@ -100,7 +100,7 @@ var m = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "functio
 	},
 	removeReflectorWiring: (t) => {
 		e((e) => {
-			e.reflector && (e.reflector.wirings = e.reflector.wirings.filter(v(t)), e.history = []);
+			e.reflector && (e.reflector.wirings = e.reflector.wirings.filter(_(t)), e.history = []);
 		});
 	},
 	setRotorRingPosition: (t, n) => {
@@ -117,227 +117,228 @@ var m = (e) => (t, n, r) => (r.setState = (e, n, ...r) => t(typeof e == "functio
 	},
 	clear: () => {
 		e((e) => {
-			e.input = "", e.output = "", e.history.length > 0 && (y(e, 0), e.history = []);
+			e.input = "", e.output = "", e.history.length > 0 && (v(e, 0), e.history = []);
 		});
 	},
 	backspace: () => {
 		e((e) => {
-			e.history.length > 0 && (e.input = e.input.slice(0, -1), e.output = e.output.slice(0, -1), y(e, e.history.length - 1), e.history.pop());
+			e.history.length > 0 && (e.input = e.input.slice(0, -1), e.output = e.output.slice(0, -1), v(e, e.history.length - 1), e.history.pop());
 		});
 	},
 	importSettings: (t) => {
 		e(() => ({
-			...h,
+			...m,
 			...t
 		}));
 	}
-}))), x = () => {
-	let { setMachineType: f, addPlugBoardWiring: p, removePlugBoardWiring: m, setUhrSetting: h, setReflectorType: y, addReflectorWiring: x, removeReflectorWiring: S, setRotorRingPosition: C, setRotorType: w, setRotorWindowLetter: T, update: E, type: D, wirings: O, history: k, backspace: A, clear: j, importSettings: M, ...N } = b(), P = d(new e()), F = d(void 0), I = u((n) => {
-		F.current = void 0, n === "M3" ? P.current = new e() : P.current = new t();
-	}, []), fe = u((e) => {
-		I(e), f(e);
-	}, [I, f]), L = u((e, t) => {
-		F.current instanceof l ? P.current.getPlugBoard().plugWire(F.current.prepareUhrWire(e, ...t)) : P.current.getPlugBoard().plugWire(...t);
-	}, []), pe = u((e) => {
-		L(O.length + 1, e), p(e);
+}))), y = () => {
+	let { setMachineType: d, addPlugBoardWiring: f, removePlugBoardWiring: p, setUhrSetting: m, setReflectorType: v, addReflectorWiring: y, removeReflectorWiring: b, setRotorRingPosition: x, setRotorType: S, setRotorWindowLetter: C, update: w, type: T, wirings: E, history: D, backspace: O, clear: k, importSettings: A, ...j } = pe(), M = u(new e()), N = u(void 0), P = l((n) => {
+		N.current = void 0, n === "M3" ? M.current = new e() : M.current = new t();
+	}, []), me = l((e) => {
+		P(e), d(e);
+	}, [P, d]), F = l((e, t) => {
+		N.current instanceof c ? M.current.getPlugBoard().plugWire(N.current.prepareUhrWire(e, ...t)) : M.current.getPlugBoard().plugWire(...t);
+	}, []), he = l((e) => {
+		F(E.length + 1, e), f(e);
 	}, [
-		O,
-		L,
-		p
-	]), me = u((e) => {
-		if (F.current instanceof l) {
-			let t = O.findIndex(v(e)) + 1;
-			t > 0 && P.current.getPlugBoard().unplugWire(F.current.getUhrWire(t));
-		} else P.current.getPlugBoard().unplugWire(...e);
-		m(e);
-	}, [O, m]), R = u((e) => {
-		F.current = new l(), F.current.prepareUhrWires(e), P.current.getPlugBoard().unplugAllWires(), P.current.getPlugBoard().plugWires(F.current.getUhrWires());
-	}, []), he = u(() => {
-		R(O), h(0);
+		E,
+		F,
+		f
+	]), ge = l((e) => {
+		if (N.current instanceof c) {
+			let t = E.findIndex(_(e)) + 1;
+			t > 0 && M.current.getPlugBoard().unplugWire(N.current.getUhrWire(t));
+		} else M.current.getPlugBoard().unplugWire(...e);
+		p(e);
+	}, [E, p]), I = l((e) => {
+		N.current = new c(), N.current.prepareUhrWires(e), M.current.getPlugBoard().unplugAllWires(), M.current.getPlugBoard().plugWires(N.current.getUhrWires());
+	}, []), _e = l(() => {
+		I(E), m(0);
 	}, [
-		O,
-		R,
-		h
-	]), ge = u(() => {
-		P.current.getPlugBoard().unplugAllWires(), P.current.getPlugBoard().plugWires(O), F.current = void 0, h(void 0);
-	}, [O, h]), z = u((e) => F.current instanceof l && (F.current.setUhrSetting(e), !0), []), _e = u((e) => {
-		z(e) && h(e);
-	}, [z, h]), B = N.uhrSetting == null || O.length === 10, V = u((e) => {
-		let c;
+		E,
+		I,
+		m
+	]), ve = l(() => {
+		M.current.getPlugBoard().unplugAllWires(), M.current.getPlugBoard().plugWires(E), N.current = void 0, m(void 0);
+	}, [E, m]), L = l((e) => N.current instanceof c && (N.current.setUhrSetting(e), !0), []), ye = l((e) => {
+		L(e) && m(e);
+	}, [L, m]), R = j.uhrSetting == null || E.length === 10, z = l((e) => {
+		let s;
 		switch (e) {
 			case "A":
-				c = new n();
+				s = new n();
 				break;
 			case "B":
-				c = new r();
+				s = new r();
 				break;
 			case "C":
-				c = new a();
+				s = new a();
 				break;
 			case "Beta":
-				c = new i();
+				s = new i();
 				break;
 			case "Gamma":
-				c = new s();
+				s = new ee();
 				break;
 			case "Thin B":
-				c = new se();
+				s = new ce();
 				break;
 			case "Thin C":
-				c = new ce();
+				s = new le();
 				break;
 			case "D":
-				c = new o();
+				s = new o();
 				break;
 			default: throw Error("Cannot create a new reflector instance");
 		}
-		P.current.setReflector(c), P.current instanceof t && !_.includes(e) && P.current.unsetRotor(t.FOURTH_ROTOR);
-	}, []), ve = u((e) => {
-		V(e), y(e);
-	}, [V, y]), H = u((e) => {
-		let t = P.current.getReflector();
+		M.current.setReflector(s), M.current instanceof t && !g.includes(e) && M.current.unsetRotor(t.FOURTH_ROTOR);
+	}, []), be = l((e) => {
+		z(e), v(e);
+	}, [z, v]), B = l((e) => {
+		let t = M.current.getReflector();
 		return t instanceof o && (t.plugWireInAlliedNotation(...e), !0);
-	}, []), ye = u((e) => {
-		H(e) && x(e);
-	}, [H, x]), be = u((e) => {
-		let t = P.current.getReflector();
-		t instanceof o && (t.unplugWireInAlliedNotation(...e), S(e));
-	}, [S]), U = u((e, t) => {
+	}, []), xe = l((e) => {
+		B(e) && y(e);
+	}, [B, y]), Se = l((e) => {
+		let t = M.current.getReflector();
+		t instanceof o && (t.unplugWireInAlliedNotation(...e), b(e));
+	}, [b]), V = l((e, t) => {
 		let n;
 		switch (t) {
 			case "I":
-				n = new c();
+				n = new s();
 				break;
 			case "II":
-				n = new ee();
-				break;
-			case "III":
 				n = new te();
 				break;
-			case "IV":
+			case "III":
 				n = new ne();
 				break;
-			case "V":
+			case "IV":
 				n = new re();
 				break;
-			case "VI":
+			case "V":
 				n = new ie();
 				break;
-			case "VII":
+			case "VI":
 				n = new ae();
 				break;
-			case "VIII":
+			case "VII":
 				n = new oe();
 				break;
+			case "VIII":
+				n = new se();
+				break;
 			case "Beta":
-				n = new le();
+				n = new ue();
 				break;
 			case "Gamma":
-				n = new ue();
+				n = new de();
 				break;
 			default: throw Error("Cannot create a new rotor instance");
 		}
-		P.current.setRotor(n, g(e));
-	}, []), xe = u((e, t) => {
-		U(e, t), w(e, t);
-	}, [U, w]), W = u((e, t) => {
-		let n = P.current.getRotor(g(e));
+		M.current.setRotor(n, h(e));
+	}, []), Ce = l((e, t) => {
+		V(e, t), S(e, t);
+	}, [V, S]), H = l((e, t) => {
+		let n = M.current.getRotor(h(e));
 		return n != null && (n.setRingPosition(t), !0);
-	}, []), Se = u((e, t) => {
-		W(e, t) && C(e, t);
-	}, [W, C]), G = u((e, t) => {
-		P.current.setRotorWindowLetter(t, g(e));
-	}, []), Ce = u((e, t) => {
-		G(e, t), T(e, t);
-	}, [G, T]), we = u((n) => {
-		let r = P.current.encode(n);
-		E({
+	}, []), we = l((e, t) => {
+		H(e, t) && x(e, t);
+	}, [H, x]), U = l((e, t) => {
+		M.current.setRotorWindowLetter(t, h(e));
+	}, []), W = l((e, t) => {
+		U(e, t), C(e, t);
+	}, [U, C]), Te = l((n) => {
+		let r = M.current.encode(n);
+		w({
 			input: n,
 			output: r,
-			fourth: D === "M4" ? {
-				ringPosition: P.current.getRotor(t.FOURTH_ROTOR)?.ringPosition ?? 0,
-				windowLetter: P.current.getRotorWindowLetter(t.FOURTH_ROTOR)
+			fourth: T === "M4" ? {
+				ringPosition: M.current.getRotor(t.FOURTH_ROTOR)?.ringPosition ?? 0,
+				windowLetter: M.current.getRotorWindowLetter(t.FOURTH_ROTOR)
 			} : void 0,
 			left: {
-				ringPosition: P.current.getRotor(e.LEFT_ROTOR)?.ringPosition ?? 0,
-				windowLetter: P.current.getRotorWindowLetter(e.LEFT_ROTOR)
+				ringPosition: M.current.getRotor(e.LEFT_ROTOR)?.ringPosition ?? 0,
+				windowLetter: M.current.getRotorWindowLetter(e.LEFT_ROTOR)
 			},
 			center: {
-				ringPosition: P.current.getRotor(e.CENTER_ROTOR)?.ringPosition ?? 0,
-				windowLetter: P.current.getRotorWindowLetter(e.CENTER_ROTOR)
+				ringPosition: M.current.getRotor(e.CENTER_ROTOR)?.ringPosition ?? 0,
+				windowLetter: M.current.getRotorWindowLetter(e.CENTER_ROTOR)
 			},
 			right: {
-				ringPosition: P.current.getRotor(e.RIGHT_ROTOR)?.ringPosition ?? 0,
-				windowLetter: P.current.getRotorWindowLetter(e.RIGHT_ROTOR)
+				ringPosition: M.current.getRotor(e.RIGHT_ROTOR)?.ringPosition ?? 0,
+				windowLetter: M.current.getRotorWindowLetter(e.RIGHT_ROTOR)
 			}
 		});
-	}, [E, D]), K = u((n) => {
-		if (k.length > 0 && n >= 0 && n < k.length) {
-			let r = k[n];
-			D === "M4" && r.fourth != null && P.current.setRotorWindowLetter(r.fourth, t.FOURTH_ROTOR), r.left != null && P.current.setRotorWindowLetter(r.left, e.LEFT_ROTOR), r.center != null && P.current.setRotorWindowLetter(r.center, e.CENTER_ROTOR), r.right != null && P.current.setRotorWindowLetter(r.right, e.RIGHT_ROTOR);
+	}, [w, T]), G = l((n) => {
+		if (D.length > 0 && n >= 0 && n < D.length) {
+			let r = D[n];
+			T === "M4" && r.fourth != null && M.current.setRotorWindowLetter(r.fourth, t.FOURTH_ROTOR), r.left != null && M.current.setRotorWindowLetter(r.left, e.LEFT_ROTOR), r.center != null && M.current.setRotorWindowLetter(r.center, e.CENTER_ROTOR), r.right != null && M.current.setRotorWindowLetter(r.right, e.RIGHT_ROTOR);
 		}
-	}, [D, k]), Te = u(() => {
-		k.length > 0 && (K(k.length - 1), A());
+	}, [T, D]), Ee = l(() => {
+		D.length > 0 && (G(D.length - 1), O());
 	}, [
-		k,
-		K,
-		A
-	]), Ee = u(() => {
-		k.length > 0 && K(0), j();
+		D,
+		G,
+		O
+	]), De = l(() => {
+		D.length > 0 && G(0), k();
 	}, [
-		k,
-		K,
-		j
-	]), De = u((e) => {
-		I(e.type), e.reflector && (V(e.reflector.type), e.reflector.type === "D" && e.reflector.wirings.forEach(H));
+		D,
+		G,
+		k
+	]), Oe = l((e) => {
+		P(e.type), e.reflector && (z(e.reflector.type), e.reflector.type === "D" && e.reflector.wirings.forEach(B));
 		let t = (e, t) => {
-			t && (U(e, t.type), W(e, t.ringPosition), G(e, t.windowLetter));
+			t && (V(e, t.type), H(e, t.ringPosition), U(e, t.windowLetter));
 		};
-		t("fourth", e.fourthRotor), t("left", e.leftRotor), t("center", e.centerRotor), t("right", e.rightRotor), e.uhrSetting != null && z(e.uhrSetting), e.wirings.forEach((e, t) => L(t, e)), M(e);
+		t("fourth", e.fourthRotor), t("left", e.leftRotor), t("center", e.centerRotor), t("right", e.rightRotor), e.uhrSetting != null && L(e.uhrSetting), e.wirings.forEach((e, t) => F(t, e)), A(e);
 	}, [
-		I,
+		P,
+		z,
+		B,
 		V,
 		H,
 		U,
-		W,
-		G,
-		z,
 		L,
-		M
-	]), q = !!N.fourthRotor?.type, J = !!N.leftRotor?.type, Y = !!N.centerRotor?.type, X = !!N.rightRotor?.type, Z = D === "M4" && (N.reflector?.type == null || _.includes(N.reflector.type)), Q = !(!N.reflector?.type || N.reflector.type === "D" && N.reflector.wirings.length !== 12), Oe = Q && (D === "M3" || q || !Z) && J && Y && X && B, ke = D === "M4" && N.fourthRotor?.windowLetter === "A" && N.fourthRotor.ringPosition === 0 && (N.reflector?.type === "Thin B" && N.fourthRotor.type === "Beta" || N.reflector?.type === "Thin C" && N.fourthRotor.type === "Gamma"), Ae = k.length > 0, $ = {
-		...N,
-		type: D,
-		isMachineValid: Oe,
-		wirings: O,
-		isPlugBoardValid: B,
-		isReflectorValid: Q,
-		isInteropReflector: ke,
-		isFourthRotorValid: q,
-		isLeftRotorValid: J,
-		isCenterRotorValid: Y,
-		isRightRotorValid: X,
-		isFourthRotorEnabled: Z,
-		isBackspaceEnabled: Ae
+		F,
+		A
+	]), K = !!j.fourthRotor?.type, q = !!j.leftRotor?.type, J = !!j.centerRotor?.type, Y = !!j.rightRotor?.type, X = T === "M4" && (j.reflector?.type == null || g.includes(j.reflector.type)), Z = !(!j.reflector?.type || j.reflector.type === "D" && j.reflector.wirings.length !== 12), Q = T === "M3" || !X, ke = Z && (Q || K) && q && J && Y && R, Ae = T === "M4" && j.fourthRotor?.windowLetter === "A" && j.fourthRotor.ringPosition === 0 && (j.reflector?.type === "Thin B" && j.fourthRotor.type === "Beta" || j.reflector?.type === "Thin C" && j.fourthRotor.type === "Gamma"), je = D.length > 0, $ = {
+		...j,
+		type: T,
+		isMachineValid: ke,
+		wirings: E,
+		isPlugBoardValid: R,
+		isReflectorValid: Z,
+		isInteropReflector: Ae,
+		isFourthRotorValid: K,
+		isLeftRotorValid: q,
+		isCenterRotorValid: J,
+		isRightRotorValid: Y,
+		isFourthRotorEnabled: X,
+		isHistoryAvailable: je,
+		isM3Compatible: Q
 	};
-	return de($), {
+	return fe($), {
 		...$,
-		setMachineType: fe,
-		addPlugBoardWiring: pe,
-		removePlugBoardWiring: me,
-		plugUhr: he,
-		unplugUhr: ge,
-		setUhrSetting: _e,
-		setReflectorType: ve,
-		addReflectorWiring: ye,
-		removeReflectorWiring: be,
-		setRotorType: xe,
-		setRotorRingPosition: Se,
-		setRotorWindowLetter: Ce,
-		encode: we,
-		backspace: Te,
-		clear: Ee,
-		importSettings: De
+		setMachineType: me,
+		addPlugBoardWiring: he,
+		removePlugBoardWiring: ge,
+		plugUhr: _e,
+		unplugUhr: ve,
+		setUhrSetting: ye,
+		setReflectorType: be,
+		addReflectorWiring: xe,
+		removeReflectorWiring: Se,
+		setRotorType: Ce,
+		setRotorRingPosition: we,
+		setRotorWindowLetter: W,
+		encode: Te,
+		backspace: Ee,
+		clear: De,
+		importSettings: Oe
 	};
 };
 //#endregion
-export { _ as thinReflectors, x as useEnigma };
+export { g as thinReflectors, y as useEnigma };

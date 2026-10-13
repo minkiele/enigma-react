@@ -1,7 +1,7 @@
 {
   "name": "enigma-react",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "files": ["dist"],
   "module": "./dist/enigma-react.js",
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && tsc -p ./tsconfig.lib.json",
     "lint": "oxlint",
     "preview": "vite preview"
   },
